@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-select=none" />
+  <title>حقك على قلبي يا ست البنات 🥺❤️</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Marhey:wght@500;700&family=Tajawal:wght@500;700;800&display=swap" rel="stylesheet">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <style>
+    body {
+      font-family: 'Tajawal', sans-serif;
+      background: radial-gradient(circle at 50% 20%, #fff1f2 0%, #ffe4e6 50%, #fecdd3 100%);
+      overflow: hidden;
+      touch-action: manipulation;
+    }
+    .font-cute { font-family: 'Marhey', cursive; }
+    
+    .floating-heart {
+      position: absolute;
+      animation: floatUp 4s infinite linear;
+      opacity: 0.6;
+    }
+    @keyframes floatUp {
+      0% { transform: translateY(100vh) scale(0.8); opacity: 0; }
+      50% { opacity: 0.8; }
+      100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+    }
+  </style>
+</head>
+
+<body class="min-h-screen flex items-center justify-center p-4 relative text-rose-950">
+
+  <!-- خلفية قلوب عائمة -->
+  <div class="fixed inset-0 pointer-events-none overflow-hidden" id="heartsBg"></div>
+
+  <!-- الكارت الرئيسي -->
+  <div class="relative z-10 w-full max-w-md bg-white/85 backdrop-blur-xl border-2 border-rose-200/90 rounded-3xl p-6 sm:p-8 text-center shadow-2xl space-y-6">
+    
+    <!-- إيموجي متحرك كيوت -->
+    <div id="mainEmoji" class="text-7xl animate-bounce">
+      🥺
+    </div>
+
+    <!-- العنوان والكلام -->
+    <div class="space-y-3">
+      <h1 class="text-2xl sm:text-3xl font-bold font-cute text-rose-900 leading-tight">
+        حقك على قلبي يا أغلى من عمري 🌸
+      </h1>
+      
+      <p class="text-sm sm:text-base text-rose-700/90 leading-relaxed font-medium">
+        والله العظيم ما يهون عليا زعلك ثانية واحدة.. الدنيا كلها تزعل وإنتي متزعليش مني أبداً. أنا آسف ومستعد أعمل أي حاجة في الدنيا علشان ضحكتك دي ترجع تنور حياتي من تاني ❤️️
+      </p>
+    </div>
+
+    <!-- السؤال والزرارين -->
+    <div class="pt-2 space-y-4">
+      <p class="text-sm font-bold font-cute text-rose-950">صافية لبن وخلاص سامحتيني؟ 🥺</p>
+      
+      <div id="btnContainer" class="flex flex-col sm:flex-row items-center justify-center gap-4 relative min-h-[110px]">
+        
+        <!-- زرار المسامحة (الثابت) -->
+        <button onclick="forgiveMe()" class="w-full sm:w-auto px-8 py-3.5 bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-600 hover:to-pink-700 text-white font-bold rounded-full shadow-lg shadow-rose-300/60 active:scale-95 transition-all text-sm font-cute">
+          مسامحاك خلاص يا روحي ❤️
+        </button>
+
+        <!-- زرار الزعل (الهارب) -->
+        <button id="noBtn" onmouseenter="dodge()" ontouchstart="dodge()" class="w-full sm:w-auto px-7 py-3 bg-white text-rose-500 font-bold border-2 border-rose-300 rounded-full shadow-sm text-sm font-cute transition-all duration-150">
+          لا لسه زعلانة 😤
+        </button>
+
+      </div>
+    </div>
+
+    <!-- رسالة الاحتفال لما تدوس مسامحاك -->
+    <div id="successBox" class="hidden space-y-3 pt-2">
+      <div class="text-6xl animate-pulse">🥰💍</div>
+      <h2 class="text-xl font-bold font-cute text-rose-800">
+        كنت عارف إن قلبك أبيض ومتقدريش تستغني عني! 🙈❤️
+      </h2>
+      <p class="text-xs text-rose-500 font-bold">
+        بحبك قد الكون ومستحيل أزعلك تاني أبداً.. افتحي الواتساب بقى عشان وحشتيني!
+      </p>
+    </div>
+
+  </div>
+
+  <script>
+    // قلوب في الخلفية
+    const bg = document.getElementById("heartsBg");
+    for (let i = 0; i < 18; i++) {
+      const h = document.createElement("div");
+      h.className = "floating-heart text-2xl";
+      h.innerHTML = ["💖", "🌸", "🥺", "✨", "🤍"][Math.floor(Math.random() * 5)];
+      h.style.left = Math.random() * 100 + "vw";
+      h.style.animationDelay = Math.random() * 4 + "s";
+      h.style.animationDuration = Math.random() * 3 + 3 + "s";
+      bg.appendChild(h);
+    }
+
+    // حركة زرار "لا لسه زعلانة" بيهرب
+    const noBtn = document.getElementById("noBtn");
+    let dodgeCount = 0;
+
+    function dodge(e) {
+      if (e) e.preventDefault();
+      dodgeCount++;
+
+      const container = document.getElementById("btnContainer");
+      const maxX = 120;
+      const maxY = 60;
+
+      const randomX = (Math.random() - 0.5) * (maxX * 2);
+      const randomY = (Math.random() - 0.5) * (maxY * 2);
+
+      noBtn.style.position = "absolute";
+      noBtn.style.transform = `translate(${randomX}px, ${randomY}px)`;
+
+      // تغيير الإيموجي لما تحاول تدوس
+      const emoji = document.getElementById("mainEmoji");
+      if (dodgeCount === 1) emoji.textContent = "😢";
+      if (dodgeCount === 3) emoji.textContent = "😭";
+      if (dodgeCount === 5) emoji.textContent = "💔";
+    }
+
+    // لما تضغط مسامحاك خلاص
+    function forgiveMe() {
+      // إخفاء الزرار والخيارات
+      document.getElementById("btnContainer").classList.add("hidden");
+      document.querySelector("p.font-cute").classList.add("hidden");
+
+      // إظهار الاحتفال
+      document.getElementById("mainEmoji").classList.add("hidden");
+      document.getElementById("successBox").classList.remove("hidden");
+
+      // تشغيل Confetti احتفالي
+      confetti({
+        particleCount: 120,
+        spread: 80,
+        origin: { y: 0.6 },
+        colors: ['#f43f5e', '#ec4899', '#fb7185', '#ffe4e6']
+      });
+
+      setTimeout(() => {
+        confetti({
+          particleCount: 80,
+          angle: 60,
+          spread: 55,
+          origin: { x: 0 }
+        });
+        confetti({
+          particleCount: 80,
+          angle: 120,
+          spread: 55,
+          origin: { x: 1 }
+        });
+      }, 300);
+    }
+  </script>
+
+</body>
+</html>
